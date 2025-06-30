@@ -25,4 +25,28 @@ export class UsersControllers{
         res.status(200).json(getUser)
     }
 
+    async updateUsers (req:Request, res:Response){
+        const idUser = req.params.id
+        const updateUser = await prisma.user.update({
+            where:{
+                id:idUser
+            },
+            data:{
+                        name:req.body.name,
+                email:req.body.email,
+                age:req.body.age
+            }
+        })
+        res.status(200).json(updateUser)
+    }
+
+    async deleteUser (req:Request, res:Response){
+        const idUser = req.params.id
+        const delUser = await prisma.user.delete({
+            where:{id:idUser},
+        
+        })
+        res.status(200).json(delUser)
+    }
+
 }
