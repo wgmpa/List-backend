@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 
 export class UsersControllers{
-     async  createUser (req:Request,res:Response) {
+       createUser = async (req:Request,res:Response):Promise<Response> => {
         const newUsers:Iusers = await prisma.user.create({
             data:{
                 name:req.body.name,
@@ -14,18 +14,16 @@ export class UsersControllers{
             }
         }) 
 
-          res.status(201).json(newUsers)
+        return  res.status(201).json(newUsers)
     }
 
-    async getUsers (req:Request, res:Response){
-        const getUser = await prisma.user.findMany({
-            
-        }) 
-    
-        res.status(200).json(getUser)
-    }
 
-    async updateUsers (req:Request, res:Response){
+  getUsers = async (_req: Request, res: Response): Promise<Response> => {
+    const users = await prisma.user.findMany()
+    return res.status(200).json(users)
+  }
+
+    updateUsers =async  (req:Request, res:Response):Promise<Response> => {
         const idUser = req.params.id
         const updateUser = await prisma.user.update({
             where:{
@@ -37,16 +35,17 @@ export class UsersControllers{
                 age:req.body.age
             }
         })
-        res.status(200).json(updateUser)
+       return res.status(200).json(updateUser)
     }
 
-    async deleteUser (req:Request, res:Response){
+
+     deleteUser = async(req:Request, res:Response):Promise<Response> => {
         const idUser = req.params.id
         const delUser = await prisma.user.delete({
             where:{id:idUser},
         
         })
-        res.status(200).json(delUser)
+        return res.status(200).json(delUser)
     }
 
 }

@@ -7,11 +7,7 @@ const port = 3000;
 const prisma = new PrismaClient()
 app.use(json())
 app.use('/usuarios',routeList)
-const IUsers ={
-    name: String,
-    age:String,
-    email:String
-}
+ 
 
 app.listen(port, () => {
     console.log(`API sucessfully started on port ${port}`);
