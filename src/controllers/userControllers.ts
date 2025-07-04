@@ -26,15 +26,15 @@ export class UsersControllers{
     updateUsers =async  (req:Request, res:Response):Promise<Response> => {
         const idUser = req.params.id
         const updateUser = await prisma.user.update({
-            where:{
-                id:idUser
-            },
-            data:{
-                        name:req.body.name,
+            where:{id:idUser},
+           data:{
+                name:req.body.name,
                 email:req.body.email,
                 age:req.body.age
             }
         })
+        
+        
        return res.status(200).json(updateUser)
     }
 
