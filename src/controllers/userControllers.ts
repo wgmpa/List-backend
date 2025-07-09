@@ -13,10 +13,8 @@ export class UsersControllers{
                 age:req.body.age
             }
         }) 
-
         return  res.status(201).json(newUsers)
     }
-
 
   getUsers = async (_req: Request, res: Response): Promise<Response> => {
     const users = await prisma.user.findMany()
@@ -34,10 +32,8 @@ export class UsersControllers{
             }
         })
         
-        
        return res.status(200).json(updateUser)
     }
-
 
      deleteUser = async(req:Request, res:Response):Promise<Response> => {
         const idUser = req.params.id
@@ -47,5 +43,4 @@ export class UsersControllers{
         })
         return res.status(200).json(delUser)
     }
-
 }

@@ -1,4 +1,4 @@
-import { Response, Request,Router } from "express";
+import {Router } from "express";
 import { UsersControllers } from "../controllers/userControllers";
 import { isUserIdValid } from "../middlewares/isIuser.middleware";
 
