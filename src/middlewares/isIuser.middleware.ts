@@ -8,7 +8,7 @@ export class isUserIdValid{
     static async execute (req:Request,res:Response, next:NextFunction){
         const idUser = String(req.params.id)
         const getId = await prisma.user.findFirst({where:{id:idUser}})
-        if(idUser !== getId?.id){ 
+        if(idUser === getId?.id){ 
             
         
         throw new AppErrors(404,"Not found")

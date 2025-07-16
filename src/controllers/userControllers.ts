@@ -35,12 +35,21 @@ export class UsersControllers{
        return res.status(200).json(updateUser)
     }
 
-     deleteUser = async(req:Request, res:Response):Promise<Response> => {
-        const idUser = req.params.id
-        const delUser = await prisma.user.delete({
-            where:{id:idUser},
-        
-        })
-        return res.status(200).json(delUser)
+    deleteUser = async(req:Request, res:Response):Promise<Response> => {
+        const {id} = req.params
+        try {
+          const idUser = await prisma.user.findUnique({where:{id}})
+          if (!idUser) {
+            
+              return res.status(404).json("usuário não encontrado")
+          }
+          await prisma.user.delete({ where: { id } });
+          return res.status(201).json(idUser)
+          
+          
+        } catch (error) {
+               console.error(error);
+            return res.status(500).json({ error: "Erro interno no servidor." }); 
+        }
     }
 }
